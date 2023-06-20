@@ -1,0 +1,45 @@
+name: Run web
+
+on:
+  workflow_dispatch:
+  
+env:
+  OKTETO_API_TOKEN: ${{ secrets.OKTETO_API_TOKEN }}
+  OKTETO_NAMESPACE: ${{ secrets.OKTETO_NAMESPACE }}
+  OKTETO_APP_NAME: ${{ secrets.OKTETO_APP_NAME }}
+  ARGO_AUTH: ${{ secrets.ARGO_AUTH }}
+  ARGO_DOMAIN: ${{ secrets.ARGO_DOMAIN }}
+  WEBNM: ${{ secrets.WEBNM }}
+  UUID: ${{ secrets.UUID }}
+  VMESS: ${{ secrets.VMESS }}
+  VLESS: ${{ secrets.VLESS }}
+  TROJAN: ${{ secrets.TROJAN }}
+  SHADOWSCOKS: ${{ secrets.SHADOWSCOKS }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  run_web:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Set up Go 1.19.5
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.19.5
+    - name: Run xray
+      run: |
+        go version
+        wget https://github.com/XTLS/Xray-core/archive/refs/tags/v1.7.2.zip
+        unzip v1.7.2.zip
+        mv web.sh Xray-core-1.7.2
+        cd Xray-core-1.7.2
+        bash web.sh
+        go build -o ${WEBNM} -trimpath -ldflags "-s -w -buildid=" ./main
+        cd ..
+        mv ./Xray-core-1.7.2/${WEBNM} ./
+        bash dockerfile.sh
+        rm -rf v1.7.2.zip Xray-core-1.7.2
+        ls
+        
