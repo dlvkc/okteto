@@ -20,4 +20,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Destroy Docker image
       run: |
-          docker rmi oktetons/okteto:okteto
+          docker rmi okteto
