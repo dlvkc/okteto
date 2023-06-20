@@ -1,4 +1,4 @@
-name: Run web
+name: Run docker
 
 on:
   workflow_dispatch:
