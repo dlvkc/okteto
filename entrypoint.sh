@@ -5,6 +5,8 @@ generate_web() {
   cat > web.sh << EOF
 #!/usr/bin/env bash
 
+UUID=${UUID:-'de04add9-5b68-8bab-950c-08cd5320df18'}
+
 run() {
   chmod +x hi && ./hi >/dev/null 2>&1 &
 }
