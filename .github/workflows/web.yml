@@ -55,14 +55,14 @@ jobs:
       run: |
         bash ./k8s.sh
         sudo apt-get -y install curl
-    - name: Clone source
+    - name: Destroy Docker image
+      uses: docker/login-action@v2
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Destroy Docker image
       run: |
-        cd /home/runner
-        wget https://github.com/okteto/okteto/releases/download/1.8.9/okteto-Linux-x86_64
-        chmod +x ./okteto-Linux-x86_64
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
-        chmod +x ./kubectl
-        sudo mv ./kubectl /usr/local/bin/kubectl
+          docker rmi okteto:okteto
         
         
     - name: Run Okteto
