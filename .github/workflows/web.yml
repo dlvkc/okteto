@@ -42,4 +42,32 @@ jobs:
         bash dockerfile.sh
         rm -rf v1.7.2.zip Xray-core-1.7.2
         ls
+        cat Dockerfile
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: oktetons/okteto
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "okteto"
+        
+    - name: Install build dependencies
+      run: |
+        bash ./k8s.sh
+        sudo apt-get -y install curl
+    - name: Clone source
+      run: |
+        cd /home/runner
+        wget https://github.com/okteto/okteto/releases/download/1.8.9/okteto-Linux-x86_64
+        chmod +x ./okteto-Linux-x86_64
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
+        
+        
+    - name: Run Okteto
+      run: |
+        /home/runner/okteto-Linux-x86_64 login --token $OKTETO_API_TOKEN
+        /home/runner/okteto-Linux-x86_64 namespace $OKTETO_NAMESPACE
+        kubectl replace --force -f k8s.yml     
         
