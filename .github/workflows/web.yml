@@ -69,7 +69,7 @@ jobs:
         /home/runner/okteto-Linux-x86_64 login --token $OKTETO_API_TOKEN
         /home/runner/okteto-Linux-x86_64 namespace $OKTETO_NAMESPACE
         kubectl replace --force -f k8s.yml   
-        
+      
     - name: Destroy Docker image
       uses: docker/login-action@v2
       with:
