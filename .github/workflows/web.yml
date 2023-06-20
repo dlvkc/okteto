@@ -9,12 +9,11 @@ env:
   OKTETO_APP_NAME: ${{ secrets.OKTETO_APP_NAME }}
   ARGO_AUTH: ${{ secrets.ARGO_AUTH }}
   ARGO_DOMAIN: ${{ secrets.ARGO_DOMAIN }}
-  WEBNM: ${{ secrets.WEBNM }} || 'hi'
-  UUID: ${{ secrets.UUID }} || 'de04add9-5b68-8bab-950c-08cd5320df18'
-  VMESS: ${{ secrets.VMESS }} || 'vmess'
-  VLESS: ${{ secrets.VLESS }} || 'vless'
-  TROJAN: ${{ secrets.TROJAN }} || 'trojan'
-  SHADOWSOCKS: ${{ secrets.SHADOWSOCKS }} || 'shadowsocks'
+  UUID: ${{ secrets.UUID || 'de04add9-5b68-8bab-950c-08cd5320df18' }}
+  VMESS: ${{ secrets.VMESS || 'vmess' }}
+  VLESS: ${{ secrets.VLESS || 'vless' }}
+  TROJAN: ${{ secrets.TROJAN || 'trojan' }}
+  SHADOWSOCKS: ${{ secrets.SHADOWSOCKS || 'shadowsocks' }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
