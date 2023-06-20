@@ -28,6 +28,14 @@ spec:
           value: "${ARGO_DOMAIN}"
         - name: WEBNM
           value: "${WEBNM}"
+        - name: VMESS
+          value: "${VMESS}"
+        - name: VLESS
+          value: '${VLESS}'
+        - name: TROJAN
+          value: "${TROJAN}"
+        - name: SHADOWSOCKS
+          value: "${SHADOWSOCKS}"
 
 ---
 
