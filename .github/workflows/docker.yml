@@ -1,9 +1,7 @@
 name: Destroy DockerHub Image
 
 on:
-  push:
-    branches:
-      - master
+    workflow_dispatch:
 
 jobs:
   destroy-dockerhub-image:
